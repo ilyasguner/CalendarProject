@@ -39,7 +39,7 @@ namespace DataAccess.Concrete
             return Encoding.UTF8.GetString(tripleDESCryptoServiceProvider.CreateDecryptor().TransformFinalBlock(data, 0, data.Length));
         }
 
-        public static SecurityProcess GetInstance()
+        public static SecurityProcess GetInstance()//bu sınıf için nesne newleme methodumuz
         {
             if (securityProcess == null)
             {

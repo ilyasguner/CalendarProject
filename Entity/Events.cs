@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entity
 {
-    public class Events
+    public class Events//olay özellikleri
     {
         int id,eventId;string userName,eventName, eventContent;DateTime creatingTime, startTime;
 
@@ -25,7 +25,7 @@ namespace Entity
             this.creatingTime = creatingTime;
             this.startTime = startTime;
         }
-
+        //programda kullandığımız constructorlarımız
         public Events(int id, int eventId, string userName, string eventName, string eventContent, DateTime creatingTime, DateTime startTime)
         {
             this.id = id;

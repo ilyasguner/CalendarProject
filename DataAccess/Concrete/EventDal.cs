@@ -13,7 +13,7 @@ namespace DataAccess.Concrete
     public class EventDal : IReporsitory<Events>
     {
 
-        static EventDal eventDal;
+        static EventDal eventDal;//kullancağımız nesnelerimiz
         SqlService sqlService;
         SqlDataReader dataReader;
 
@@ -23,7 +23,7 @@ namespace DataAccess.Concrete
             sqlService = SqlDataBase.GetInstance();
         }
 
-        public string Add(Events entity)
+        public string Add(Events entity)//yeni bir olay eklemek için
         {
             try
             {
@@ -40,7 +40,7 @@ namespace DataAccess.Concrete
             }
         }
 
-        public string Delete(int id)
+        public string Delete(int id)//eklenecek
         {
             try
             {
@@ -55,19 +55,19 @@ namespace DataAccess.Concrete
             
         }
 
-        public Events Get(int id)
+        public Events Get(int id)//eklenecek
         {
             throw new NotImplementedException();
         }
 
-        public List<Events> Getlist()
+        public List<Events> Getlist()//aşağıda yazdık yenisini
         {
             throw new NotImplementedException();
         }
 
 
 
-        public string Update(Events entity)
+        public string Update(Events entity)//güncelleme methodumuz
         {
             try
             {

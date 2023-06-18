@@ -8,7 +8,7 @@ namespace Entity
 {
     internal class Auth
     {
-        int id;string name;
+        int id;string name;//kullanıcı tipleri admin,kullanıcı
 
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }

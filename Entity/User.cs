@@ -9,7 +9,7 @@ namespace Entity
     public class User
     {
         int id,authId; string name, authName,userName,telphone,identityNo,mail,adress;
-
+        //kullanıcı özellikleri
         
 
         public int Id { get => id; set => id = value; }

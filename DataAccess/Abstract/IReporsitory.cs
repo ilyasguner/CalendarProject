@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface IReporsitory<T>
+    public interface IReporsitory<T>//diğer sınıflarımızda da kullanacağımız methodlarımızı kalıtım verecek olan interface
     {
         List<T> Getlist();
 

@@ -21,7 +21,7 @@ namespace DataAccess.Abstract
             connection.ConnectionString = connectionString;
         }
 
-        SqlConnection OpenConnection()
+        SqlConnection OpenConnection()//sql bağlantısını açan fonksiyon
         {
             if(connection.State==ConnectionState.Closed)
             {
@@ -31,7 +31,7 @@ namespace DataAccess.Abstract
             return connection;
         }
 
-        void CloseConnection()
+        void CloseConnection()//sql bağlantısını kapatan fonksiyon
         {
             if(connection.State==ConnectionState.Open)
             {

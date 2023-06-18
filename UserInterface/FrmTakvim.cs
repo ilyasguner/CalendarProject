@@ -17,9 +17,7 @@ namespace UserInterface
     {
         public object[] infos;
         EventDal eventsDal;
-        Events events;
-        List<DateTime> times = new List<DateTime>();
-        DateTime birleşikTarih;
+        Events events;        
         bool timerDurdur=true;
         SoundPlayer player = new SoundPlayer(Properties.Resources.alarm2);
         public FrmTakvim()
@@ -35,12 +33,12 @@ namespace UserInterface
 
 
         void OlayListesi()
-        {
+        {//datagried için kaynak olarak sqlde yazdığımız  kullanıcı adına göre olayları getiren prosedürümüzü çağırıyoruz
             DtgTakvim.DataSource = eventsDal.OlaylarıListele("GetDescription", infos[0].ToString());
             DataGriedDoldur();
         }
 
-        void DataGriedDoldur()
+        void DataGriedDoldur()//sqlden gelen başlıkları ayarlıyoruz
         {
             DtgTakvim.Columns["ID"].Visible = false;
             DtgTakvim.Columns["EventId"].Visible = false;
@@ -52,7 +50,7 @@ namespace UserInterface
         }
 
         private void DtgTakvim_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
+        {//seçilen satırın bilgilerini yazdırma
             if (DtgTakvim.CurrentRow == null)
             {
                 MessageBox.Show("Öncelikle Bir Satır Seçiniz");
@@ -60,7 +58,7 @@ namespace UserInterface
 
             DataGridViewRow row = DtgTakvim.CurrentRow;
 
-            events = new Events(
+            events = new Events(//events kısmında oluşturulan constructor
                 row.Cells["EventName"].Value.ToString(),
                 row.Cells["EventContent"].Value.ToString(),
                 row.Cells["CreatingTime"].Value.ConDate(),
@@ -76,11 +74,10 @@ namespace UserInterface
         }
 
         private void BtnOlayTanımla_Click(object sender, EventArgs e)
-        {
-            
+        {           
             DateTime başlangıcTarihi = DtpBaslangic.Value;
             TimeSpan başlangıçZamanı = TimeSpan.Parse(MskBaslangic.Text);
-            birleşikTarih = başlangıcTarihi + başlangıçZamanı;
+            DateTime birleşikTarih = başlangıcTarihi + başlangıçZamanı;
 
             events = new Events(TxtOlay.Text, infos[0].ToString(), RchAciklama.Text, birleşikTarih);
             string mesaj =eventsDal.Add(events);
@@ -96,8 +93,8 @@ namespace UserInterface
             {
                 return;
             }
-            int simdi = DateTime.Now.Minute;
-            
+            int simdiDakika = DateTime.Now.Minute;
+            int simdiSaat = DateTime.Now.Hour;
             foreach (DataGridViewRow satır in DtgTakvim.Rows)
             {
                 if(!satır.IsNewRow)
@@ -107,9 +104,8 @@ namespace UserInterface
                     {
                         DateTime tarih = (DateTime)hucre.Value;
 
-                        if (tarih.Minute == simdi) // Tarih eşleşiyorsa
-                        {
-                            
+                        if (tarih.Minute == simdiDakika &&tarih.Hour==simdiSaat) // Tarih eşleşiyorsa
+                        {                            
                             timer1.Stop();
                             timerDurdur = false;
                             player.Play();
@@ -129,7 +125,7 @@ namespace UserInterface
             }
         }
         
-        public void Temizle()
+        public void Temizle()//satırları temizleme
         {
             TxtOlay.Text = "";
             RchAciklama.Text = "";
