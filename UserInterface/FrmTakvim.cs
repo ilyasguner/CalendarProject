@@ -47,6 +47,9 @@ namespace UserInterface
             DtgTakvim.Columns["EventContent"].HeaderText = "Olay Açıklaması";
             DtgTakvim.Columns["CreatingTime"].HeaderText = "Oluşturma Zamanı";
             DtgTakvim.Columns["StartTime"].HeaderText = "Başlangıç Zamanı";
+            DtgTakvim.Columns["EventContent"].Width = 300;
+            DtgTakvim.Columns["CreatingTime"].Width = 150;
+            DtgTakvim.Columns["StartTime"].Width = 150;
         }
 
         private void DtgTakvim_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)

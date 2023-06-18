@@ -32,11 +32,12 @@ namespace UserInterface
             Kontroller();
             if (durum)
             {
-                 string mesaj=userDal.Add(new User(TxtKullanıcıAdı.Text, TxtAdSoyad.Text, MskKimlik.Text, MskTelefon.Text, MskMail.Text, RchAdres.Text, 2));
-                 userDal.AddLogin(TxtKullanıcıAdı.Text, TxtSifre.Text);
+                string mesaj=userDal.Add(new User(TxtKullanıcıAdı.Text, TxtAdSoyad.Text, MskKimlik.Text, MskTelefon.Text, MskMail.Text, RchAdres.Text, 2));
+                userDal.AddLogin(TxtKullanıcıAdı.Text, TxtSifre.Text);
                 MessageBox.Show(mesaj,"Bilgilendirme",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                this.Close();
             }
-            this.Close();
+            
         }
 
         private void FrmKayıt_Load(object sender, EventArgs e)
