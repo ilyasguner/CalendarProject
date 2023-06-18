@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,8 +18,10 @@ namespace UserInterface
         public object[] infos;
         EventDal eventsDal;
         Events events;
-
-
+        List<DateTime> times = new List<DateTime>();
+        DateTime birleşikTarih;
+        bool timerDurdur=true;
+        SoundPlayer player = new SoundPlayer(Properties.Resources.alarm2);
         public FrmTakvim()
         {
             InitializeComponent();
@@ -27,15 +30,9 @@ namespace UserInterface
 
         private void FrmTakvim_Load(object sender, EventArgs e)
         {
-            BilgileriDoldur();
-            OlayListesi();
-            TxtOlay.Text = infos[0].ToString();
+            OlayListesi();           
         }
 
-        void BilgileriDoldur()
-        {
-            
-        }
 
         void OlayListesi()
         {
@@ -76,6 +73,68 @@ namespace UserInterface
             MskOlusturma.Text = events.CreatingTime.ToShortTimeString();
             DtpBaslangic.Text = events.StartTime.ToString();
             MskBaslangic.Text = events.StartTime.ToShortTimeString();
+        }
+
+        private void BtnOlayTanımla_Click(object sender, EventArgs e)
+        {
+            
+            DateTime başlangıcTarihi = DtpBaslangic.Value;
+            TimeSpan başlangıçZamanı = TimeSpan.Parse(MskBaslangic.Text);
+            birleşikTarih = başlangıcTarihi + başlangıçZamanı;
+
+            events = new Events(TxtOlay.Text, infos[0].ToString(), RchAciklama.Text, birleşikTarih);
+            string mesaj =eventsDal.Add(events);
+            MessageBox.Show(mesaj,"Bilgi",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            Temizle();
+            OlayListesi();
+            timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if(!timerDurdur)
+            {
+                return;
+            }
+            int simdi = DateTime.Now.Minute;
+            
+            foreach (DataGridViewRow satır in DtgTakvim.Rows)
+            {
+                if(!satır.IsNewRow)
+                {
+                    DataGridViewCell hucre = satır.Cells["StartTime"];
+                    if (hucre.Value!=null && hucre.Value is DateTime)
+                    {
+                        DateTime tarih = (DateTime)hucre.Value;
+
+                        if (tarih.Minute == simdi) // Tarih eşleşiyorsa
+                        {
+                            
+                            timer1.Stop();
+                            timerDurdur = false;
+                            player.Play();
+                            DialogResult dr=MessageBox.Show("Dikkat Bir Olay Zamanı Geldi","Dikkat",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                            if(dr==DialogResult.OK)
+                            {
+                                player.Stop();
+                            }
+                            TxtOlay.Text = satır.Cells["EventName"].Value.ToString();
+                            RchAciklama.Text = satır.Cells["EventContent"].Value.ToString();
+                            DtpOlusturma.Text = satır.Cells["CreatingTime"].Value.ToString();
+                            DtpBaslangic.Text = satır.Cells["StartTime"].Value.ToString();
+                            break;
+                        }
+                    }
+                }              
+            }
+        }
+        
+        public void Temizle()
+        {
+            TxtOlay.Text = "";
+            RchAciklama.Text = "";
+            MskOlusturma.Text = "";
+            MskBaslangic.Text = "";
         }
     }
 }

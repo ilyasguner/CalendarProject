@@ -36,5 +36,13 @@ namespace Entity
             this.creatingTime = creatingTime;
             this.startTime = startTime;
         }
+
+        public Events(string eventName,string userName,string eventContent,DateTime startTime)
+        {
+            this.eventName = eventName;
+            this.userName = userName;
+            this.eventContent = eventContent;
+            this.startTime = startTime;
+        }
     }
 }

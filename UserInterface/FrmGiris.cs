@@ -43,7 +43,7 @@ namespace UserInterface
             }
             
         }
-        public void Kontroller()
+        public void Kontroller()//Bilgileri Kontrol ediyoruz
         {
             if(string.IsNullOrEmpty(TxtKullanıcıAdı.Text)||string.IsNullOrEmpty(TxtSifre.Text))
             {
