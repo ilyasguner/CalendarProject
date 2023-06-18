@@ -110,6 +110,7 @@
             // 
             // BtnKaydet
             // 
+            this.BtnKaydet.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnKaydet.Location = new System.Drawing.Point(183, 352);
             this.BtnKaydet.Name = "BtnKaydet";
             this.BtnKaydet.Size = new System.Drawing.Size(102, 42);
@@ -124,6 +125,7 @@
             this.TxtKullanıcıAdı.Name = "TxtKullanıcıAdı";
             this.TxtKullanıcıAdı.Size = new System.Drawing.Size(179, 26);
             this.TxtKullanıcıAdı.TabIndex = 8;
+            this.TxtKullanıcıAdı.Tag = "esfgdd";
             // 
             // TxtAdSoyad
             // 
@@ -197,6 +199,7 @@
             this.Name = "FrmKayıt";
             this.ShowIcon = false;
             this.Text = "Kayıt Ekranı";
+            this.Load += new System.EventHandler(this.FrmKayıt_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

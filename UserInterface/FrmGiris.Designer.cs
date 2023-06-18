@@ -81,6 +81,7 @@
             // 
             // BtnGiris
             // 
+            this.BtnGiris.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnGiris.Location = new System.Drawing.Point(176, 142);
             this.BtnGiris.Name = "BtnGiris";
             this.BtnGiris.Size = new System.Drawing.Size(96, 35);

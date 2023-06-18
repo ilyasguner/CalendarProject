@@ -15,7 +15,7 @@ namespace UserInterface
     public partial class FrmKayıt : Form
     {
         UserDal userDal;
-
+        bool durum = false;
         public FrmKayıt()
         {
             InitializeComponent();
@@ -29,8 +29,45 @@ namespace UserInterface
 
         private void BtnKaydet_Click(object sender, EventArgs e)
         {
-            //userDal.Add(new User(TxtKullanıcıAdı.Text, TxtAdSoyad.Text, MskKimlik.Text, MskTelefon.Text, MskMail.Text, RchAdres.Text, 2));
-            userDal.AddLogin(TxtKullanıcıAdı.Text, TxtSifre.Text);
+            Kontroller();
+            if (durum)
+            {
+                 userDal.AddLogin(TxtKullanıcıAdı.Text, TxtSifre.Text);
+                 userDal.Add(new User(TxtKullanıcıAdı.Text, TxtAdSoyad.Text, MskKimlik.Text, MskTelefon.Text, MskMail.Text, RchAdres.Text, 2));
+            }                     
+
+                      
+        }
+
+        private void FrmKayıt_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        public void Kontroller()//Bilgilerin Eksiksiz Girildiğini Kontrol Ediyoruz
+        {
+            if (string.IsNullOrEmpty(TxtAdSoyad.Text)|| string.IsNullOrEmpty(TxtKullanıcıAdı.Text) ||string.IsNullOrEmpty(TxtSifre.Text)||
+                string.IsNullOrEmpty(MskKimlik.Text)||string.IsNullOrEmpty(MskMail.Text)||string.IsNullOrEmpty(MskTelefon.Text))
+            {
+                MessageBox.Show("Kullanıcı Bilgileri Boş Geçilemez","Dikkat",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                return;
+            }
+            if(TxtKullanıcıAdı.Text.Length>20)
+            {
+                MessageBox.Show("Kullanıcı Adı 20 Karakteri Geçemez", "Dikkat", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (MskKimlik.Text.Length < 11)
+            {
+                MessageBox.Show("Kimlik No 11 Karakterden Az Olamaz", "Dikkat", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (TxtSifre.Text.Length > 15)
+            {
+                MessageBox.Show("Şifre 15 Karakteri Geçemez", "Dikkat", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            durum = true;
         }
     }
 }

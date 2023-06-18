@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete
 {
-    public static class Helper
+    public static class Helper//yardımcı sınıfımız
     {
         public static DateTime ConDate(this object param)
         {

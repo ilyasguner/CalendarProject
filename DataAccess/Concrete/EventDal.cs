@@ -18,8 +18,6 @@ namespace DataAccess.Concrete
         SqlDataReader dataReader;
 
 
-
-
         public EventDal()
         {
             sqlService = SqlDataBase.GetInstance();
@@ -110,7 +108,7 @@ namespace DataAccess.Concrete
 
 
 
-        public static EventDal GetInstance()
+        public static EventDal GetInstance()//nesne newleme methodumuz
         {
             if(eventDal==null)
             {
